@@ -1,0 +1,16 @@
+<div class="row">
+	<div class=" span1 text-center well">
+		<%= link_to vote_post_comment_path(comment.post,comment,type: true),method: "post" do%>
+		<i class="icon-arrow-up"></i>
+		<% end %>
+		<p><%= comment.total %></p>
+		<%= link_to vote_post_comment_path(comment.post,comment,type: false),method: "post" do%>
+		<i class="icon-arrow-down"></i>
+		<% end %>
+	</div>
+	<div class="span8 well">
+		<p><%= comment.body%></p>
+		<p><span class="quiet">On: </span><%= link_to comment.post.title, post_path(comment.post)%></p>
+		<p><span class="quiet">Posted by: </span><%= link_to comment.user.username, user_path(comment.user)%></p>
+	</div>
+</div>

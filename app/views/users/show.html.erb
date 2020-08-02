@@ -1,0 +1,29 @@
+<%= render "shared/title",title: "#{@user.username}'s profile"%>
+
+<% if @user.id == session[:user_id] %>
+<p>[<%= link_to "Edit profile",edit_user_path(@user)%>]</p>
+<% end %>
+
+<h5><%= @user.username%>'s activity:</h5>
+
+<ul class="nav nav-tabs">
+	<li class="<%= 'active' if params[:tabs].nil? %>">
+		<%= link_to "Posts", user_path(@user)%>
+	</li>
+	<li class="<%= 'active' if params[:tabs] == 'comments' %>">
+		<%= link_to "Comments", user_path(@user, tabs: "comments")%>
+	</li>
+</ul>
+
+<% if params[:tabs].nil? %>
+<% @user.posts.each do |post|%>
+	<%= render "posts/show_posts",post: post%>
+<%end%>
+<%end%>
+
+<% if params[:tabs] == 'comments' %>
+
+<%@user.comments.each do |comment|%>
+	<%= render "posts/show_comments",comment: comment%>
+<%end%>
+<%end%>

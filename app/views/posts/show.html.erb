@@ -1,0 +1,26 @@
+<p>
+	<%= render @post.categories %>
+</p>
+<%= render "shared/title", title: @post.title%>
+<p class="right">
+	[<%= link_to "edit this post", edit_post_path(@post)%>]
+</p>
+
+<div class="well">
+	<p><%= @post.description %></p>
+</div>
+
+<h5>Leave a comment:</h5>
+<%= render "shared/error",obj: @comment%>
+<%= form_for [@post,@comment] do |f|%>
+<div class="content-control">
+	<%= f.text_area :body, rows: 4 %>
+</div>
+<%= f.submit "Add Comment", class: "btn btn-success"%>
+<% end %>
+
+<hr/>
+
+<%@post.comments.each do |comment|%>
+	<%= render "show_comments",comment: comment%>
+<%end%>

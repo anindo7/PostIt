@@ -1,0 +1,56 @@
+<ul class="nav">
+  <li>
+    <%= link_to "Postit!", root_path, :class => 'brand' %>
+  </li>
+  
+  <% if logged_in?%>
+  	  <li>
+	    <%= link_to 'New Post', new_post_path %>
+	  </li>
+  <% else %>
+	  <li>
+	    <%= link_to 'Register', register_path %>
+	  </li>
+	  <li>
+	    <%= link_to 'Log in', login_path %>
+	  </li>
+  <% end %>
+</ul>
+<% if logged_in?%>
+<div class="btn-group nav-item">
+	<%= link_to "#", class: "btn btn-small dropdown-toggle", "data-toggle" => "dropdown" do %>
+	Categories <span class="caret"></span>
+	<% end %>
+	<ul class="dropdown-menu">
+		<% Category.all.each do |cat|%>
+		<li><%= link_to cat.name, category_path(cat)%></li>
+		<% end %>
+		<li class="divider"></li>
+		<li>
+			<%= link_to(new_category_path) do%>
+			<i class="icon-plus"></i>
+			New Category
+			<% end%>
+		</li>
+	</ul>
+</div>
+<% end %>
+
+<% if logged_in?%>
+<div class="btn-group nav-item">
+	<%= link_to "#", class: "btn btn-small dropdown-toggle", "data-toggle" => "dropdown" do %>
+	<%= current_user.username %> <span class="caret"></span>
+	<% end %>
+	<ul class="dropdown-menu">
+		<li>
+	    <%= link_to 'Show Profile', user_path(current_user) %>
+	  </li>
+		<li>
+	    <%= link_to 'Edit Profile', edit_user_path(current_user) %>
+	  </li>
+	  <li>
+	    <%= link_to 'Log Out', logout_path %>
+	  </li>
+	</ul>
+</div>
+<% end %>
